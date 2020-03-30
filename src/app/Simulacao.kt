@@ -4,47 +4,53 @@ import kotlin.math.pow
 
 class Simulacao
 {
-    var tempoDaSimulacao: Float = 0.0f
-    var chegadaA: Float = 0.0f
-    var chegadaB: Float = 0.0f
-    var chegadaC: Float = 0.0f
-    var servicoA: Float = 0.0f
-    var servicoB: Float = 0.0f
-    var servicoC: Float = 0.0f
+    var tempoDaSimulacao: String = ""
+    var chegadaA: String = ""
+    var chegadaB: String = ""
+    var chegadaC: String = ""
+    var servicoA: String = ""
+    var servicoB: String = ""
+    var servicoC: String = ""
 
-    fun mostrarValores()
+    fun validar()  : Boolean
     {
-        println(this.tempoDaSimulacao)
-        println(this.chegadaA)
-        println(this.chegadaB)
-        println(this.chegadaC)
-        println(this.servicoA)
-        println(this.servicoB)
-        println(this.servicoC)
+        try {
+            this.tempoDaSimulacao.toFloat()
+            this.chegadaA.toFloat()
+            this.chegadaB.toFloat()
+            this.chegadaC.toFloat()
+            this.servicoA.toFloat()
+            this.servicoB.toFloat()
+            this.servicoC.toFloat()
+        } catch (e: Exception) {
+            return false
+        }
+        return true
     }
 
-    fun simular() : Retorno
+    fun simular() : Retorno?
     {
+        if (!this.validar()) return null
         val resultado = this.retornarResultado()
         val media = this.retornarMedia(resultado)
-        //val tabela = this.calcularTabela(4)
-        return Retorno(resultado, media)
+        val tabela = this.calcularTabela(resultado, 4)
+        return Retorno(resultado, media, tabela)
     }
 
     fun calcularResultado(chegadaOuServico: Float) : Float
     {
-        return this.tempoDaSimulacao / chegadaOuServico
+        return this.tempoDaSimulacao.toFloat() / chegadaOuServico
     }
 
     fun retornarResultado() : Resultado
     {
         return Resultado(
-                this.calcularResultado(this.chegadaA),
-                this.calcularResultado(this.chegadaB),
-                this.calcularResultado(this.chegadaC),
-                this.calcularResultado(this.servicoA),
-                this.calcularResultado(this.servicoB),
-                this.calcularResultado(this.servicoC)
+                this.calcularResultado(this.chegadaA.toFloat()),
+                this.calcularResultado(this.chegadaB.toFloat()),
+                this.calcularResultado(this.chegadaC.toFloat()),
+                this.calcularResultado(this.servicoA.toFloat()),
+                this.calcularResultado(this.servicoB.toFloat()),
+                this.calcularResultado(this.servicoC.toFloat())
         )
     }
 
@@ -83,23 +89,16 @@ class Simulacao
         return (1 - (chegada / servico)) * (chegada / servico).pow(n)
     }
 
-    fun calcularTabela(max: Int) : MutableMap<Pair<Int, String>, Float>
+    fun calcularTabela(resultado: Resultado, max: Int) : MutableMap<Pair<Int, Int>, Float>
     {
-        val chegadas = arrayListOf(this.chegadaA, this.chegadaB, this.chegadaC)
-        val servicos = arrayListOf(this.servicoA, this.servicoB, this.servicoC)
-        val mapa: MutableMap<Pair<Int, String>, Float> = mutableMapOf()
+        val chegadas = arrayListOf(resultado.chegadaA, resultado.chegadaB, resultado.chegadaC)
+        val servicos = arrayListOf(resultado.servicoA, resultado.servicoB, resultado.servicoC)
+        val mapa: MutableMap<Pair<Int, Int>, Float> = mutableMapOf()
         for (n in 0..max)
         {
             for (i in 0..2)
             {
-                var letra = ""
-                when (i)
-                {
-                    0 -> letra = "A"
-                    1 -> letra = "B"
-                    2 -> letra = "C"
-                }
-                mapa[Pair(n, letra)] = this.formulaDeP(n, chegadas[i], servicos[i])
+                mapa[Pair(n, i)] = this.formulaDeP(n, chegadas[i], servicos[i])
             }
         }
         return mapa

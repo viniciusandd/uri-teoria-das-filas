@@ -14,3 +14,11 @@ body {
   margin: 5px;
   width: 100px;
 }
+
+form {
+  margin: 15px;
+}
+
+button {
+  margin: 10px;
+}
