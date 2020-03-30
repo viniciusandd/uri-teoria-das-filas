@@ -49,10 +49,20 @@ class App : RComponent<RProps, AppState>()
                     tabelaUi()
 
                     botoesUi()
+
+                    footer {
+                        a(href = "https://github.com/viniciusandd", target = "_blank") {
+                            i("fa fa-copyright") {
+                            }
+                            +" Vinicius Emanoel Andrade - 2020"
+                        }
+                    }
                 }
             }
         }
     }
+
+    fun Float.format(digits: Int): String = this.asDynamic().toFixed(digits)
 
     private fun RBuilder.tituloUi()
     {
@@ -86,7 +96,7 @@ class App : RComponent<RProps, AppState>()
                             td { +"$n" }
                             td { +"P($n)" }
                             for (i in 0..2) {
-                                td { +"${it.get(Pair(n, i))}" }
+                                td { +"${it.get(Pair(n, i))?.format(2)}" }
                             }
                         }
                     }
@@ -98,46 +108,46 @@ class App : RComponent<RProps, AppState>()
     private fun RBuilder.formularioSaida2Ui()
     {
         state.retorno?.media?.let {
-            div {
+            div("divComBorda") {
                 form(classes = "formularioSaida") {
                     attrs.style = js { color = "white" }
 
                     div {
                         +"Nº Médio de Carros no Sistema: "
                         input {
-                            attrs.defaultValue = it.lA.toString()
+                            attrs.defaultValue = it.lA.format(2)
                         }
                         input {
-                            attrs.defaultValue = it.lB.toString()
+                            attrs.defaultValue = it.lB.format(2)
                         }
                         input {
-                            attrs.defaultValue = it.lC.toString()
+                            attrs.defaultValue = it.lC.format(2)
                         }
                     }
 
                     div {
                         +"Tempo Médio Despendido no Sistema: "
                         input {
-                            attrs.defaultValue = it.wA.toString()
+                            attrs.defaultValue = it.wA.format(2)
                         }
                         input {
-                            attrs.defaultValue = it.wB.toString()
+                            attrs.defaultValue = it.wB.format(2)
                         }
                         input {
-                            attrs.defaultValue = it.wC.toString()
+                            attrs.defaultValue = it.wC.format(2)
                         }
                     }
 
                     div {
                         +"Taxa Média de Ocupação no Servidor: "
                         input {
-                            attrs.defaultValue = it.pA.toString()
+                            attrs.defaultValue = it.pA.format(2)
                         }
                         input {
-                            attrs.defaultValue = it.pB.toString()
+                            attrs.defaultValue = it.pB.format(2)
                         }
                         input {
-                            attrs.defaultValue = it.pC.toString()
+                            attrs.defaultValue = it.pC.format(2)
                         }
                     }
                 }
@@ -148,33 +158,33 @@ class App : RComponent<RProps, AppState>()
     private fun RBuilder.formularioSaidaUi()
     {
         state.retorno?.resultado?.let {
-            div {
+            div("divComBorda") {
                 form(classes = "formularioSaida") {
                     attrs.style = js { color = "white" }
 
                     div {
                         +"Chegadas: "
                         input {
-                            attrs.defaultValue = it.chegadaA.toString()
+                            attrs.defaultValue = it.chegadaA.format(2)
                         }
                         input {
-                            attrs.defaultValue = it.chegadaB.toString()
+                            attrs.defaultValue = it.chegadaB.format(2)
                         }
                         input {
-                            attrs.defaultValue = it.chegadaC.toString()
+                            attrs.defaultValue = it.chegadaC.format(2)
                         }
                     }
 
                     div {
                         +"Serviço: "
                         input {
-                            attrs.defaultValue = it.servicoA.toString()
+                            attrs.defaultValue = it.servicoA.format(2)
                         }
                         input {
-                            attrs.defaultValue = it.servicoB.toString()
+                            attrs.defaultValue = it.servicoB.format(2)
                         }
                         input {
-                            attrs.defaultValue = it.servicoC.toString()
+                            attrs.defaultValue = it.servicoC.format(2)
                         }
                     }
                 }
@@ -184,66 +194,65 @@ class App : RComponent<RProps, AppState>()
 
     private fun RBuilder.formularioEntradaUi()
     {
-        form {
-            attrs.id = "formularioEntrada"
-            attrs.style = js { color = "white" }
-            div {
-                +"Tempo a ser simulado (minutos): "
-                input {
-                    attrs.onChangeFunction = {
-                        val target = it.target as HTMLInputElement
-                        setState {
-                            simulacao.tempoDaSimulacao = target.value
+        div("divComBorda") {
+            form {
+                attrs.id = "formularioEntrada"
+                attrs.style = js { color = "white" }
+                div {
+                    +"Tempo a ser simulado (minutos): "
+                    input {
+                        attrs.onChangeFunction = {
+                            val target = it.target as HTMLInputElement
+                            setState {
+                                simulacao.tempoDaSimulacao = target.value
+                            }
                         }
                     }
                 }
-            }
-            div {
-                +"Chegadas: "
-                input {
-                    attrs.onChangeFunction = {
-                        val target = it.target as HTMLInputElement
-                        setState { simulacao.chegadaA = target.value }
+                div {
+                    +"Chegadas: "
+                    input {
+                        attrs.onChangeFunction = {
+                            val target = it.target as HTMLInputElement
+                            setState { simulacao.chegadaA = target.value }
+                        }
+                    }
+                    input {
+                        attrs.onChangeFunction = {
+                            val target = it.target as HTMLInputElement
+                            setState { simulacao.chegadaB = target.value }
+                        }
+                    }
+                    input {
+                        attrs.onChangeFunction = {
+                            val target = it.target as HTMLInputElement
+                            setState { simulacao.chegadaC = target.value }
+                        }
                     }
                 }
-                input {
-                    attrs.onChangeFunction = {
-                        val target = it.target as HTMLInputElement
-                        setState { simulacao.chegadaB = target.value }
+                div {
+                    +"Serviço: "
+                    input {
+                        attrs.onChangeFunction = {
+                            val target = it.target as HTMLInputElement
+                            setState { simulacao.servicoA = target.value }
+                        }
+                    }
+                    input {
+                        attrs.onChangeFunction = {
+                            val target = it.target as HTMLInputElement
+                            setState { simulacao.servicoB = target.value }
+                        }
+                    }
+                    input {
+                        attrs.onChangeFunction = {
+                            val target = it.target as HTMLInputElement
+                            setState { simulacao.servicoC = target.value }
+                        }
                     }
                 }
-                input {
-                    attrs.onChangeFunction = {
-                        val target = it.target as HTMLInputElement
-                        setState { simulacao.chegadaC = target.value }
-                    }
-                }
-            }
-            div {
-                +"Serviço: "
-                input {
-                    attrs.onChangeFunction = {
-                        val target = it.target as HTMLInputElement
-                        setState { simulacao.servicoA = target.value }
-                    }
-                }
-                input {
-                    attrs.onChangeFunction = {
-                        val target = it.target as HTMLInputElement
-                        setState { simulacao.servicoB = target.value }
-                    }
-                }
-                input {
-                    attrs.onChangeFunction = {
-                        val target = it.target as HTMLInputElement
-                        setState { simulacao.servicoC = target.value }
-                    }
-                }
-            }
-            if (state.retorno != null)
-            {
-                input(classes = "btn btn-danger", type = InputType.reset) {
-                    attrs.defaultValue = "Redefinir Entradas"
+                input(classes = "btn btn-danger btn-sm", type = InputType.reset) {
+                    attrs.id = "btnRedefinir"
                     attrs.onClickFunction = {
                         setState {
                             retorno = null
@@ -255,11 +264,14 @@ class App : RComponent<RProps, AppState>()
     }
 
     private fun RBuilder.botoesUi() {
-        button(classes = "btn btn-primary") {
-            +"Simular"
-            attrs.onClickFunction = {
-                setState {
-                    retorno = simulacao.simular()
+        if (state.retorno == null)
+        {
+            button(classes = "btn btn-primary btn-lg") {
+                +"Simular"
+                attrs.onClickFunction = {
+                    setState {
+                        retorno = simulacao.simular()
+                    }
                 }
             }
         }

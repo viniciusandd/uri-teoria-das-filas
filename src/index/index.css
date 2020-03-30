@@ -5,6 +5,11 @@ body {
   background-color: #30302f;
 }
 
+.divComBorda {
+    border-style: groove;
+    margin: 20px;
+}
+
 #formularioEntrada input {
   margin: 5px;
   width: 100px;
@@ -20,5 +25,6 @@ form {
 }
 
 button {
-  margin: 10px;
+  width: 800px;
+  margin: 50px;
 }
