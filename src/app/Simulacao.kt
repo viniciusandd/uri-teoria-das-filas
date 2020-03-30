@@ -11,6 +11,7 @@ class Simulacao
     var servicoA: String = ""
     var servicoB: String = ""
     var servicoC: String = ""
+    var maxClientes: String = ""
 
     fun validar()  : Boolean
     {
@@ -22,6 +23,7 @@ class Simulacao
             this.servicoA.toFloat()
             this.servicoB.toFloat()
             this.servicoC.toFloat()
+            this.maxClientes.toInt()
         } catch (e: Exception) {
             return false
         }
@@ -33,8 +35,8 @@ class Simulacao
         if (!this.validar()) return null
         val resultado = this.retornarResultado()
         val media = this.retornarMedia(resultado)
-        val tabela = this.calcularTabela(resultado, 4)
-        return Retorno(resultado, media, tabela)
+        val tabela = this.calcularTabela(resultado, this.maxClientes.toInt())
+        return Retorno(resultado, media, Pair(tabela, this.maxClientes.toInt()))
     }
 
     fun calcularResultado(chegadaOuServico: Float) : Float

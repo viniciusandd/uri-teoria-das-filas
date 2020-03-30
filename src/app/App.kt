@@ -21,10 +21,6 @@ interface AppState : RState
     var retorno: Retorno?
 }
 
-fun limparInputs()
-{
-}
-
 class App : RComponent<RProps, AppState>()
 {
     override fun AppState.init()
@@ -50,14 +46,18 @@ class App : RComponent<RProps, AppState>()
 
                     botoesUi()
 
-                    footer {
-                        a(href = "https://github.com/viniciusandd", target = "_blank") {
-                            i("fa fa-copyright") {
-                            }
-                            +" Vinicius Emanoel Andrade - 2020"
-                        }
-                    }
+                    footerUi()
                 }
+            }
+        }
+    }
+
+    private fun RBuilder.footerUi() {
+        footer {
+            a(href = "https://github.com/viniciusandd", target = "_blank") {
+                i("fa fa-copyright") {
+                }
+                +" Vinicius Emanoel Andrade - 2020"
             }
         }
     }
@@ -91,12 +91,12 @@ class App : RComponent<RProps, AppState>()
                     }
                 }
                 tbody {
-                    for (n in 0..4) {
+                    for (n in 0..it.second-1) {
                         tr {
                             td { +"$n" }
                             td { +"P($n)" }
                             for (i in 0..2) {
-                                td { +"${it.get(Pair(n, i))?.format(2)}" }
+                                td { +"${it.first.get(Pair(n, i))?.format(2)}" }
                             }
                         }
                     }
@@ -251,11 +251,24 @@ class App : RComponent<RProps, AppState>()
                         }
                     }
                 }
-                input(classes = "btn btn-danger btn-sm", type = InputType.reset) {
-                    attrs.id = "btnRedefinir"
-                    attrs.onClickFunction = {
-                        setState {
-                            retorno = null
+                p {
+                    attrs.style = js { margin = "15px" }
+                    +"Probabilidade de Clientes(MAX): "
+                    input {
+                        attrs.onChangeFunction = {
+                            val target = it.target as HTMLInputElement
+                            setState { simulacao.maxClientes = target.value }
+                        }
+                    }
+                }
+                if (state.retorno != null)
+                {
+                    input(classes = "btn btn-danger btn-sm", type = InputType.reset) {
+                        attrs.id = "btnRedefinir"
+                        attrs.onClickFunction = {
+                            setState {
+                                retorno = null
+                            }
                         }
                     }
                 }
