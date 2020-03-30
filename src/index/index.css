@@ -10,5 +10,7 @@ body {
   width: 100px;
 }
 
-#formularioSaida1 input {
+.formularioSaida input {
+  margin: 5px;
+  width: 100px;
 }
