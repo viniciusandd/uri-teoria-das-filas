@@ -254,7 +254,7 @@ class App : RComponent<RProps, AppState>()
                 p {
                     attrs.style = js { margin = "15px" }
                     +"Probabilidade de Clientes(MAX): "
-                    input {
+                    input(InputType.number) {
                         attrs.onChangeFunction = {
                             val target = it.target as HTMLInputElement
                             setState { simulacao.maxClientes = target.value }

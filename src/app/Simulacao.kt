@@ -16,13 +16,13 @@ class Simulacao
     fun validar()  : Boolean
     {
         try {
-            this.tempoDaSimulacao.toFloat()
-            this.chegadaA.toFloat()
-            this.chegadaB.toFloat()
-            this.chegadaC.toFloat()
-            this.servicoA.toFloat()
-            this.servicoB.toFloat()
-            this.servicoC.toFloat()
+            this.tempoDaSimulacao = this.tempoDaSimulacao.replace(",", "."); this.tempoDaSimulacao.toFloat()
+            this.chegadaA = this.chegadaA.replace(",", "."); this.chegadaA.toFloat()
+            this.chegadaB = this.chegadaB.replace(",", "."); this.chegadaB.toFloat()
+            this.chegadaC = this.chegadaC.replace(",", "."); this.chegadaC.toFloat()
+            this.servicoA = this.servicoA.replace(",", "."); this.servicoA.toFloat()
+            this.servicoB = this.servicoB.replace(",", "."); this.servicoB.toFloat()
+            this.servicoC = this.servicoC.replace(",", "."); this.servicoC.toFloat()
             this.maxClientes.toInt()
         } catch (e: Exception) {
             return false
