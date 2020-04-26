@@ -1,6 +1,6 @@
 ## Teoria
 
-O trabalho consiste em uma implementação do Emprego de Modelagem Analítica (Teoria das Filas). Cujo, permite mensurar algumas informações importantes, como por exemplo:
+O trabalho consiste em uma implementação didática do Emprego de Modelagem Analítica (Teoria das Filas). Cujo, permite mensurar algumas informações importantes, como por exemplo:
 
 - tempo médio dos serviços
 - tamanho médio da fila na área de espera
